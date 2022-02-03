@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,16 @@ namespace AppInsightsLab
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddApplicationInsightsTelemetry(this.Configuration["ApplicationInsights:InstrumentationKey"]);
+
+            services.AddApplicationInsightsTelemetry(
+                options =>
+                    {
+                        options.InstrumentationKey = "Instrumentation Key";
+
+                        options.EnablePerformanceCounterCollectionModule = false;
+                        options.EnableEventCounterCollectionModule = false;
+                        options.EnableDependencyTrackingTelemetryModule = false;
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
