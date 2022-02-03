@@ -25,15 +25,7 @@ namespace AppInsightsLab
         {
             services.AddControllersWithViews();
 
-            services.AddApplicationInsightsTelemetry(
-                options =>
-                    {
-                        options.InstrumentationKey = "Instrumentation Key";
-
-                        options.EnablePerformanceCounterCollectionModule = false;
-                        options.EnableEventCounterCollectionModule = false;
-                        options.EnableDependencyTrackingTelemetryModule = false;
-                    });
+            services.AddApplicationInsightsTelemetry(this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
